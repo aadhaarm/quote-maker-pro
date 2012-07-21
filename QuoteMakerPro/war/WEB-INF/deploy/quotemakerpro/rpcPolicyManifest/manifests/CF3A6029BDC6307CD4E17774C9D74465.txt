@@ -1,0 +1,2 @@
+serviceClass: com.lounge3.quotemakerpro.client.proxy.FormService
+path: A06DC174861EEF899CFF35E10E0C703F.gwt.rpc

@@ -1,0 +1,7 @@
+package com.lounge3.quotemakerpro.client.event;
+
+import com.google.gwt.event.shared.EventHandler;
+
+public interface UpdatedCategoryEventHandler extends EventHandler {
+  void onFormUpdationClicked(UpdatedCategoryEvent event);
+}
