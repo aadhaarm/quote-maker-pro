@@ -1,0 +1,15 @@
+<!-- Indices written at Sat, 14 Jul 2012 15:20:11 GMT+05:30 -->
+
+<datastore-indexes>
+
+    <!-- Used 13 times in query history -->
+    <datastore-index kind="FormCategoryDO" ancestor="true" source="auto">
+        <property name="categories_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+    <!-- Used 13 times in query history -->
+    <datastore-index kind="FormProductDO" ancestor="true" source="auto">
+        <property name="products_INTEGER_IDX" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+         version="2.5"
+         xmlns="http://java.sun.com/xml/ns/javaee">
+
+  <!-- Servlets -->
+  
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>QuoteMakerPro.html</welcome-file>
+  </welcome-file-list>
+
+   <!-- Servlets -->
+  <servlet>
+    <servlet-name>quoteServiceImpl</servlet-name>
+    <servlet-class>com.lounge3.quotemakerpro.server.FormServiceImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>quoteServiceImpl</servlet-name>
+    <url-pattern>/quotemakerpro/form</url-pattern>
+  </servlet-mapping>
+
+</web-app>
