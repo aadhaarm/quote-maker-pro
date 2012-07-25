@@ -111,7 +111,7 @@ public class FormUserView extends Composite implements FormUserPresenter.Display
 											if(Constants.QUANTITY_ALGO_MULTIPLE.equalsIgnoreCase(formProductTO.getQuantityAlgo())) {
 												for(long i=formProductTO.getMinQuantity(); i<=formProductTO.getMaxQuantity(); i++) {
 													if(i % Integer.parseInt(formProductTO.getMultiOrMan()) == 0) {
-														lbQuantity.addItem(formProductTO.getMultiOrMan(), formProductTO.getMultiOrMan());
+														lbQuantity.addItem(Long.toString(i), Long.toString(i));
 													}
 												}
 											} else if(Constants.QUANTITY_ALGO_MANUAL.equalsIgnoreCase(formProductTO.getQuantityAlgo())) {
