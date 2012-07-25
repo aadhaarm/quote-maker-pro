@@ -107,10 +107,12 @@ public class ProductDetailView extends Composite implements ProductDetailPresent
 
 	@Override
 	public void setData(ElementTO data) {
+		if(data != null) {
 		productTable.setText(0, 1, data.getName());
 		productTable.setText(1, 1, data.getDescription());
 		productTable.setText(2, 1, data.getPrice().toString());
 		productTable.setText(3, 1, data.getTitle());
+		}
 	}
 
 	@Override

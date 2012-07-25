@@ -17,6 +17,18 @@ private static final long serialVersionUID = 1L;
 	private String description;
 	
 	private Double price;
+	
+	private String elementQuantityType;
+	
+	private String quantityAlgo;
+	
+	private Long minQuantity;
+	
+	private Long maxQuantity;
+	
+	private String quantityUnit;
+	
+	private String multiOrMan;
 
 	public String getFormProductId() {
 		return formProductId;
@@ -73,5 +85,53 @@ private static final long serialVersionUID = 1L;
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public String getElementQuantityType() {
+		return elementQuantityType;
+	}
+
+	public void setElementQuantityType(String elementQuantityType) {
+		this.elementQuantityType = elementQuantityType;
+	}
+
+	public String getQuantityAlgo() {
+		return quantityAlgo;
+	}
+
+	public void setQuantityAlgo(String quantityAlgo) {
+		this.quantityAlgo = quantityAlgo;
+	}
+
+	public Long getMinQuantity() {
+		return minQuantity;
+	}
+
+	public void setMinQuantity(Long minQuantity) {
+		this.minQuantity = minQuantity;
+	}
+
+	public Long getMaxQuantity() {
+		return maxQuantity;
+	}
+
+	public void setMaxQuantity(Long maxQuantity) {
+		this.maxQuantity = maxQuantity;
+	}
+
+	public String getQuantityUnit() {
+		return quantityUnit;
+	}
+
+	public void setQuantityUnit(String quantityUnit) {
+		this.quantityUnit = quantityUnit;
+	}
+
+	public String getMultiOrMan() {
+		return multiOrMan;
+	}
+
+	public void setMultiOrMan(String multiOrMan) {
+		this.multiOrMan = multiOrMan;
 	}
 }

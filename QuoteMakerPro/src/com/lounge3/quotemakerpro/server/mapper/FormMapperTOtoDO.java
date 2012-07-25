@@ -39,6 +39,7 @@ public class FormMapperTOtoDO {
 			elementDO.setMinQuantity(elementTO.getMinQuantity());
 			elementDO.setQuantityAlgo(elementTO.getQuantityAlgo());
 			elementDO.setQuantityUnit(elementTO.getQuantityUnit());
+			elementDO.setMultiOrMan(elementTO.getMultiOrMan());
 		}
 		return elementDO;
 	}

@@ -41,6 +41,9 @@ public class ElementDO implements Serializable{
 	private String quantityAlgo;
 	
 	@Persistent
+	private String multiOrMan;
+		
+	@Persistent
 	private Long minQuantity;
 	
 	@Persistent
@@ -147,5 +150,13 @@ public class ElementDO implements Serializable{
 
 	public void setQuantityUnit(String quantityUnit) {
 		this.quantityUnit = quantityUnit;
+	}
+
+	public String getMultiOrMan() {
+		return multiOrMan;
+	}
+
+	public void setMultiOrMan(String multiOrMan) {
+		this.multiOrMan = multiOrMan;
 	}
 }
