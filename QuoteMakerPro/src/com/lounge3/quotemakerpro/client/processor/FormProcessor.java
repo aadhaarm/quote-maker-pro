@@ -28,7 +28,7 @@ public class FormProcessor {
 	}
 	
 	public void updateProductQuantity(FormProductTO formProductTO, Long quantity) {
-		selectedProducts.remove(formProductTO.getProductId());
+		selectedProducts.remove(Long.toString(formProductTO.getProductId()));
 		selectedProducts.put(formProductTO.getProductId().toString(), ClientUtils.getProductSaveTO(formProductTO, quantity));
 	}
 	
