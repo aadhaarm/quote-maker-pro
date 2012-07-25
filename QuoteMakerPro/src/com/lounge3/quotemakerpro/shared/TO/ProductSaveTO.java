@@ -11,6 +11,8 @@ private static final long serialVersionUID = 1L;
 
 	private Double quotedPrice;
 	
+	private Long quantity;
+	
 	public Long getProductId() {
 		return productId;
 	}
@@ -25,6 +27,14 @@ private static final long serialVersionUID = 1L;
 
 	public void setQuotedPrice(Double quotedPrice) {
 		this.quotedPrice = quotedPrice;
+	}
+
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
 	}
 
 	@Override

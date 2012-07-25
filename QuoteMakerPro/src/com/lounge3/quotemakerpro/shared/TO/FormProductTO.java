@@ -134,4 +134,18 @@ private static final long serialVersionUID = 1L;
 	public void setMultiOrMan(String multiOrMan) {
 		this.multiOrMan = multiOrMan;
 	}
+
+	@Override
+	public boolean equals(Object arg0) {
+		if(arg0 != null && ((FormProductTO)arg0).getProductId() == this.productId) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public int hashCode() {
+		return 1;
+	}
 }

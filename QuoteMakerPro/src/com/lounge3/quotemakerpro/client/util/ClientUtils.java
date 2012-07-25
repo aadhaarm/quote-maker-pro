@@ -13,12 +13,13 @@ import com.lounge3.quotemakerpro.shared.TO.UserTO;
 
 public class ClientUtils {
 
-	public static ProductSaveTO getProductSaveTO(FormProductTO formProductTO) {
+	public static ProductSaveTO getProductSaveTO(FormProductTO formProductTO, Long quantity) {
 		ProductSaveTO selectedProduct = null;
 		if(formProductTO != null) {
 			selectedProduct = new ProductSaveTO();
 			selectedProduct.setProductId(formProductTO.getProductId());
 			selectedProduct.setQuotedPrice(formProductTO.getPrice());
+			selectedProduct.setQuantity(quantity);
 		}
 		return selectedProduct;
 	}
