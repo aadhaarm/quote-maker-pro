@@ -498,6 +498,14 @@ public class FormDAO {
 					formProductTO.setTitle(product.getTitle());
 					formProductTO.setDescription(product.getDescription());
 					formProductTO.setPrice(product.getPrice());
+					
+					formProductTO.setElementQuantityType(product.getElementQuantityType());
+					formProductTO.setMaxQuantity(product.getMaxQuantity());
+					formProductTO.setMinQuantity(product.getMinQuantity());
+					formProductTO.setQuantityAlgo(product.getQuantityAlgo());
+					formProductTO.setQuantityUnit(product.getQuantityUnit());
+					
+					formProductTO.setMultiOrMan(product.getMultiOrMan());
 				}
 			}
 		}

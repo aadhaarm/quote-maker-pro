@@ -1,5 +1,7 @@
 package com.lounge3.quotemakerpro.shared;
 
+import com.google.gwt.i18n.client.HasDirection.Direction;
+
 public final class Constants {
 
 	/**
@@ -27,4 +29,10 @@ public final class Constants {
 	public static final String QUANTITY_TYPE_QUANTITY_BASED = "quantityBased";
 
 	public static final String QUANTITY_TYPE_SELECTION_BASED = "selectionBased";
+
+	public static final String QUANTITY_ALGO_ANY = "any";
+
+	public static final String QUANTITY_ALGO_MULTIPLE = "multiple";
+
+	public static final String QUANTITY_ALGO_MANUAL = "manual";
 }

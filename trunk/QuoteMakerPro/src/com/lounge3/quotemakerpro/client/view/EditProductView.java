@@ -3,6 +3,8 @@ package com.lounge3.quotemakerpro.client.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gwt.event.dom.client.ChangeEvent;
+import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
@@ -17,6 +19,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.lounge3.quotemakerpro.client.presenter.EditProductPresenter;
+import com.lounge3.quotemakerpro.shared.Constants;
 import com.lounge3.quotemakerpro.shared.TO.ElementTO;
 
 public class EditProductView extends Composite implements EditProductPresenter.Display {
@@ -32,6 +35,7 @@ public class EditProductView extends Composite implements EditProductPresenter.D
 	private final TextBox txtMinQuantity;
 	private final TextBox txtMaxQuantity;
 	private final ListBox lbQuantityAlgo;
+	private final TextBox txtQuantityManOrMulti;
 	private final TextBox txtQuantityUnit;
 	
 	private final FlexTable detailsTable;
@@ -58,13 +62,30 @@ public class EditProductView extends Composite implements EditProductPresenter.D
 		rbQuantityBased = new RadioButton("quantityType", "Quantity Based");
 		rbSelectionBased = new RadioButton("quantityType", "Selection Based");
 		txtMinQuantity = new TextBox();
+		txtMinQuantity.setMaxLength(3);
 		txtMaxQuantity = new TextBox();
+		txtMaxQuantity.setMaxLength(3);
 		
 		lbQuantityAlgo = new ListBox();
-		lbQuantityAlgo.addItem("Any quantity", "any");
-		lbQuantityAlgo.addItem("Multiple", "multiple");
-		lbQuantityAlgo.addItem("Manual", "manual");
+		lbQuantityAlgo.addItem("Any quantity", Constants.QUANTITY_ALGO_ANY);
+		lbQuantityAlgo.addItem("Multiple", Constants.QUANTITY_ALGO_MULTIPLE);
+		lbQuantityAlgo.addItem("Manual", Constants.QUANTITY_ALGO_MANUAL);
 		lbQuantityAlgo.setVisibleItemCount(1);
+		
+		lbQuantityAlgo.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+				if(!Constants.QUANTITY_ALGO_ANY.equalsIgnoreCase(((ListBox)event.getSource()).getValue(((ListBox)event.getSource()).getSelectedIndex()))) {
+					txtQuantityManOrMulti.setVisible(true);
+				} else {
+					txtQuantityManOrMulti.setVisible(false);
+				}
+			}
+		});
+
+		txtQuantityManOrMulti = new TextBox();
+		txtQuantityManOrMulti.setVisible(false);
 		
 		txtQuantityUnit = new TextBox();
 		
@@ -80,14 +101,18 @@ public class EditProductView extends Composite implements EditProductPresenter.D
 		detailsTable.setWidget(4, 1, lbCategory);
 		detailsTable.setWidget(5, 0, new Label("Quantity Type"));
 		detailsTable.setWidget(5, 1, rbQuantityBased);
-		detailsTable.setWidget(6, 0, new Label("Minimum quantity"));
-		detailsTable.setWidget(6, 1, txtMinQuantity);
-		detailsTable.setWidget(7, 0, new Label("Maximum quantity"));
-		detailsTable.setWidget(7, 1, txtMaxQuantity);
-		detailsTable.setWidget(8, 0, new Label("Quantity rule"));
-		detailsTable.setWidget(8, 1, lbQuantityAlgo);
-		detailsTable.setWidget(9, 0, new Label("Quantity unit"));
-		detailsTable.setWidget(94, 1, txtQuantityUnit);
+		detailsTable.setWidget(6, 1, rbSelectionBased);
+		detailsTable.setWidget(7, 0, new Label("Minimum quantity"));
+		detailsTable.setWidget(7, 1, txtMinQuantity);
+		detailsTable.setWidget(8, 0, new Label("Maximum quantity"));
+		detailsTable.setWidget(8, 1, txtMaxQuantity);
+		detailsTable.setWidget(9, 0, new Label("Quantity rule"));
+		detailsTable.setWidget(9, 1, lbQuantityAlgo);
+		
+		detailsTable.setWidget(10, 1, txtQuantityManOrMulti);
+		
+		detailsTable.setWidget(11, 0, new Label("Quantity unit"));
+		detailsTable.setWidget(11, 1, txtQuantityUnit);
 
 		txtProductName.setFocus(true);
 		contentDetailsPanel.add(detailsTable);
@@ -175,5 +200,10 @@ public class EditProductView extends Composite implements EditProductPresenter.D
 
 	public RadioButton getRbQuantityBased() {
 		return rbQuantityBased;
+	}
+
+	@Override
+	public HasValue<String> getTxtQualtityMultiOrManual() {
+		return txtQuantityManOrMulti;
 	}
 }

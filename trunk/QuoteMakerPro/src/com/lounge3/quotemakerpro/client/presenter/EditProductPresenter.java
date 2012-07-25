@@ -35,6 +35,7 @@ public class EditProductPresenter implements Presenter{
 		HasValue<String> getTxtMinQuantity();
 		HasValue<String> getTxtMaxQuantity();
 		ListBox getLbQuantityAlgo();
+		HasValue<String> getTxtQualtityMultiOrManual();
 		HasValue<String> getTxtQuantityUnit();
 		RadioButton getRbSelectionBased();
 		RadioButton getRbQuantityBased();
@@ -140,7 +141,8 @@ public class EditProductPresenter implements Presenter{
 		this.productElement.setMaxQuantity(Long.parseLong(this.display.getTxtMaxQuantity().getValue()));
 		this.productElement.setQuantityAlgo(this.display.getLbQuantityAlgo().getValue(this.display.getLbQuantityAlgo().getSelectedIndex()));
 		this.productElement.setQuantityUnit(this.display.getTxtQuantityUnit().getValue());
-				
+		this.productElement.setMultiOrMan(this.display.getTxtQualtityMultiOrManual().getValue());
+						
 		rpcService.addNewElement(productElement, loginInfo.getScreenName(), display.getSelectedCategories(), new AsyncCallback<Void>() {
 
 			@Override

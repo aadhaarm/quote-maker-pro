@@ -45,6 +45,7 @@ public class FormMapperDOtoTO {
 			}
 			elementTO.setQuantityAlgo(elementDO.getQuantityAlgo());
 			elementTO.setQuantityUnit(elementDO.getQuantityUnit());		
+			elementTO.setMultiOrMan(elementDO.getMultiOrMan());		
 		}
 		return elementTO;
 	}

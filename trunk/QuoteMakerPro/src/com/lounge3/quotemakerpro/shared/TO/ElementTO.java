@@ -27,6 +27,8 @@ public class ElementTO implements Serializable{
 	private Long maxQuantity;
 	
 	private String quantityUnit;
+	
+	private String multiOrMan;
 
 	public ElementTO() {
 		super();
@@ -152,5 +154,13 @@ public class ElementTO implements Serializable{
 
 	public void setQuantityUnit(String quantityUnit) {
 		this.quantityUnit = quantityUnit;
+	}
+
+	public String getMultiOrMan() {
+		return multiOrMan;
+	}
+
+	public void setMultiOrMan(String multiOrMan) {
+		this.multiOrMan = multiOrMan;
 	}
 }
