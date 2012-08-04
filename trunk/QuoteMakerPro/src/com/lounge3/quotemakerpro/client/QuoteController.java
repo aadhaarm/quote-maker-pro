@@ -4,7 +4,6 @@ import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.user.client.History;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.lounge3.quotemakerpro.client.event.AddCategoryEvent;
 import com.lounge3.quotemakerpro.client.event.AddCategoryEventHandler;
@@ -37,6 +36,7 @@ import com.lounge3.quotemakerpro.client.presenter.EditProductPresenter;
 import com.lounge3.quotemakerpro.client.presenter.FormPresenter;
 import com.lounge3.quotemakerpro.client.presenter.FormUserPresenter;
 import com.lounge3.quotemakerpro.client.presenter.MenuPresenter;
+import com.lounge3.quotemakerpro.client.presenter.NSHomePresenter;
 import com.lounge3.quotemakerpro.client.presenter.Presenter;
 import com.lounge3.quotemakerpro.client.presenter.ProductDetailPresenter;
 import com.lounge3.quotemakerpro.client.presenter.ProductPresenter;
@@ -51,6 +51,7 @@ import com.lounge3.quotemakerpro.client.view.EditProductView;
 import com.lounge3.quotemakerpro.client.view.FormUserView;
 import com.lounge3.quotemakerpro.client.view.FormView;
 import com.lounge3.quotemakerpro.client.view.MenuView;
+import com.lounge3.quotemakerpro.client.view.NSHomeView;
 import com.lounge3.quotemakerpro.client.view.ProductDetailView;
 import com.lounge3.quotemakerpro.client.view.ProductView;
 import com.lounge3.quotemakerpro.client.view.StatusBarView;
@@ -80,13 +81,14 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 		eventBus.addHandler(LoginEvent.TYPE, new LoginEventHandler() {
 			@Override
 			public void onLoginLinkClicked(LoginEvent event) {
-				History.newItem("login");			}
+				History.newItem(Constants.HISTORYITEM_LOGIN);			
+			}
 		});
 
 		eventBus.addHandler(LogoutEvent.TYPE, new LogoutEventHandler() {
 			@Override
 			public void onLogoutLinkClicked(LogoutEvent event) {
-				History.newItem("logout");
+				History.newItem(Constants.HISTORYITEM_LOGOUT);
 			}
 		});
 
@@ -108,7 +110,7 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 
 			@Override
 			public void onAddFormClicked(AddCategoryEvent event) {
-				History.newItem("AddCategory");
+				History.newItem(Constants.HISTORYITEM_ADD_CATEGORY);
 			}
 		});
 
@@ -116,7 +118,7 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 
 			@Override
 			public void onAddProductClicked(AddProductEvent event) {
-				History.newItem("AddProduct");
+				History.newItem(Constants.HISTORYITEM_ADD_PRODUCT);
 			}
 		});
 
@@ -124,7 +126,7 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 
 			@Override
 			public void onAddProductClicked(ProductEvent event) {
-				History.newItem("ListProducts");
+				History.newItem(Constants.HISTORYITEM_LIST_PRODUCTS);
 			}
 		});
 
@@ -132,7 +134,7 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 
 			@Override
 			public void onProductUpdate(UpdatedProductEvent event) {
-				History.newItem("ListProducts");
+				History.newItem(Constants.HISTORYITEM_LIST_PRODUCTS);
 			}
 		});
 
@@ -141,7 +143,7 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 			@Override
 			public void onShowProductDetail(ProductDetailEvent event) {
 				selectedProductName = event.getProductName();
-				History.newItem("ProductDetail");
+				History.newItem(Constants.HISTORYITEM_PRODUCT_DETAILS);
 
 			}
 		});
@@ -150,7 +152,7 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 
 			@Override
 			public void onFormRowClicked(EditEvent event) {
-				History.newItem("EditProduct");
+				History.newItem(Constants.HISTORYITEM_EDIT_PRODUCT);
 			}
 		});
 
@@ -183,19 +185,15 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 
 		if (token != null) {
 			Presenter presenter = null;
-			//			presenter = new StatusBarPresenter(rpcService, eventBus, new StatusBarView(), loginInfo);
-			//			presenter.go(container);
-			//			presenter = new MenuPresenter(rpcService, eventBus, new MenuView(), loginInfo);
-			//			presenter.go(container);
-			//			presenter = null;
-
-			if (token.equals("logout")) {
+			if (token.equals(Constants.HISTORYITEM_LOGOUT)) {
 				presenter = new MenuPresenter(rpcService, eventBus, new MenuView(), loginInfo);
 				presenter.go(container);
 				presenter = new StatusBarPresenter(rpcService, eventBus, new StatusBarView(), loginInfo);
 				presenter.go(container);
+				presenter = new NSHomePresenter(rpcService, eventBus, new NSHomeView(), loginInfo);
+				presenter.go(container);
 				presenter = null;
-			} else if (token.equals("login")) {
+			} else if (token.equals(Constants.HISTORYITEM_LOGIN)) {
 				presenter = new MenuPresenter(rpcService, eventBus, new MenuView(), loginInfo);
 				presenter.go(container);
 				presenter = new StatusBarPresenter(rpcService, eventBus, new StatusBarView(), loginInfo);
@@ -203,15 +201,15 @@ public class QuoteController implements Presenter, ValueChangeHandler<String> {
 				presenter = null;
 			} else if (token.equals(Constants.HISTORYITEM_LIST_CATEGORY)) {
 				presenter = new CategoryPresenter(rpcService, eventBus, new CategoryView(), loginInfo);
-			} else if (token.equals("AddCategory")) {
+			} else if (token.equals(Constants.HISTORYITEM_ADD_CATEGORY)) {
 				presenter = new EditCategoryPresenter(rpcService, eventBus, new EditCategoryView(), loginInfo);
-			} else if (token.equals("AddProduct")) {
+			} else if (token.equals(Constants.HISTORYITEM_ADD_PRODUCT)) {
 				presenter = new EditProductPresenter(rpcService, eventBus, new EditProductView(), loginInfo);
-			} else if (token.equals("ListProducts")) {
+			} else if (token.equals(Constants.HISTORYITEM_LIST_PRODUCTS)) {
 				presenter = new ProductPresenter(rpcService, eventBus, new ProductView(), loginInfo);  
-			} else if (token.equals("ProductDetail")) {
+			} else if (token.equals(Constants.HISTORYITEM_PRODUCT_DETAILS)) {
 				presenter = new ProductDetailPresenter(rpcService, eventBus, new ProductDetailView(), loginInfo, selectedProductName);  
-			} else if (token.equals("EditProduct")) {
+			} else if (token.equals(Constants.HISTORYITEM_EDIT_PRODUCT)) {
 				presenter = new EditProductPresenter(rpcService, eventBus, new EditProductView(), selectedProductName, loginInfo);  
 			} else if (token.equals(Constants.HISTORYITEM_EDIT_FORM)) {
 				presenter = new EditFormPresenter(rpcService, eventBus, new EditFormView(), loginInfo);  

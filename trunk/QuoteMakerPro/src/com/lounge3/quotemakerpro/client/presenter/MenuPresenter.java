@@ -14,6 +14,7 @@ import com.lounge3.quotemakerpro.client.event.EditFormEvent;
 import com.lounge3.quotemakerpro.client.event.FormEvent;
 import com.lounge3.quotemakerpro.client.event.ProductEvent;
 import com.lounge3.quotemakerpro.client.proxy.FormServiceAsync;
+import com.lounge3.quotemakerpro.shared.Constants;
 import com.lounge3.quotemakerpro.shared.LoginInfo;
 
 public class MenuPresenter implements Presenter{  
@@ -89,10 +90,10 @@ public class MenuPresenter implements Presenter{
 
 	public void go(final HasWidgets container) {
 		if(loginInfo.isLoggedIn()) {		
-			RootPanel.get("leftHandMenuDiv").clear();
-			RootPanel.get("leftHandMenuDiv").add(display.asWidget());
+			RootPanel.get(Constants.DIV_LEFT_MENU).clear();
+			RootPanel.get(Constants.DIV_LEFT_MENU).add(display.asWidget());
 		} else {
-			RootPanel.get("leftHandMenuDiv").clear();
+			RootPanel.get(Constants.DIV_LEFT_MENU).clear();
 		}
 	}
 }

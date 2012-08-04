@@ -14,16 +14,14 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.lounge3.quotemakerpro.client.event.ProductDetailEvent;
 import com.lounge3.quotemakerpro.client.event.ProductEvent;
-import com.lounge3.quotemakerpro.client.event.UpdatedProductEvent;
 import com.lounge3.quotemakerpro.client.proxy.FormServiceAsync;
 import com.lounge3.quotemakerpro.shared.Constants;
 import com.lounge3.quotemakerpro.shared.LoginInfo;
 import com.lounge3.quotemakerpro.shared.TO.ElementTO;
 
 public class EditProductPresenter implements Presenter{  
-	
+
 	public interface Display {
 		HasClickHandlers getSaveButton();
 		HasClickHandlers getCancelButton();
@@ -31,7 +29,7 @@ public class EditProductPresenter implements Presenter{
 		HasValue<String> getDescription();
 		HasValue<String> getProductTitle();
 		HasValue<String> getPrice();
-		
+
 		HasValue<String> getTxtMinQuantity();
 		HasValue<String> getTxtMaxQuantity();
 		ListBox getLbQuantityAlgo();
@@ -39,9 +37,11 @@ public class EditProductPresenter implements Presenter{
 		HasValue<String> getTxtQuantityUnit();
 		RadioButton getRbSelectionBased();
 		RadioButton getRbQuantityBased();
-		
+
 		List<String> getSelectedCategories();
 		void setData(List<ElementTO> data);
+		boolean validateForm();
+
 		Widget asWidget();
 	}
 
@@ -91,15 +91,17 @@ public class EditProductPresenter implements Presenter{
 
 		this.display.getSaveButton().addClickHandler(new ClickHandler() {   
 			public void onClick(ClickEvent event) {
-				doSave();
+				if(display.validateForm()) {
+					doSave();
+				}
 			}
 		});
-		
+
 		this.display.getCancelButton().addClickHandler(new ClickHandler() {
-			
+
 			@Override
 			public void onClick(ClickEvent event) {
-				RootPanel.get("detailDiv").clear();
+				RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
 				eventBus.fireEvent(new ProductEvent());
 			}
 		});
@@ -107,8 +109,8 @@ public class EditProductPresenter implements Presenter{
 
 	public void go(final HasWidgets container) {
 		fetchCategoriesAndSet();
-		RootPanel.get("detailDiv").clear();
-		RootPanel.get("detailDiv").add(display.asWidget());
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).add(display.asWidget());
 	}
 
 	private void fetchCategoriesAndSet() {
@@ -131,18 +133,32 @@ public class EditProductPresenter implements Presenter{
 		this.productElement.setType("product");
 		this.productElement.setTitle(display.getProductTitle().getValue());
 		this.productElement.setPrice(Double.parseDouble(display.getPrice().getValue()));
-		
-		if(this.display.getRbQuantityBased().isEnabled()) {
-			this.productElement.setElementQuantityType(Constants.QUANTITY_TYPE_QUANTITY_BASED);
-		} else {
-			this.productElement.setElementQuantityType(Constants.QUANTITY_TYPE_SELECTION_BASED);
-		}
-		this.productElement.setMinQuantity(Long.parseLong(this.display.getTxtMinQuantity().getValue()));
-		this.productElement.setMaxQuantity(Long.parseLong(this.display.getTxtMaxQuantity().getValue()));
 		this.productElement.setQuantityAlgo(this.display.getLbQuantityAlgo().getValue(this.display.getLbQuantityAlgo().getSelectedIndex()));
 		this.productElement.setQuantityUnit(this.display.getTxtQuantityUnit().getValue());
 		this.productElement.setMultiOrMan(this.display.getTxtQualtityMultiOrManual().getValue());
-						
+
+		if(!this.display.getRbQuantityBased().isEnabled()) {
+			this.productElement.setElementQuantityType(Constants.QUANTITY_TYPE_QUANTITY_BASED);
+			this.productElement.setMinQuantity(new Long("1"));
+			this.productElement.setMaxQuantity(new Long("1"));
+		} else {
+			this.productElement.setElementQuantityType(Constants.QUANTITY_TYPE_SELECTION_BASED);
+
+			if(Constants.QUANTITY_ALGO_MANUAL.equalsIgnoreCase(this.productElement.getQuantityAlgo())) {
+				if(this.productElement.getMultiOrMan() != null) {
+					String [] quantity = this.productElement.getMultiOrMan().split(",");
+					if(quantity != null && quantity.length > 0) {
+						this.productElement.setMinQuantity(Long.parseLong(quantity[0]));
+						this.productElement.setMaxQuantity(Long.parseLong(quantity[quantity.length - 1]));
+					}
+				}
+			} else {
+				this.productElement.setMinQuantity(Long.parseLong(this.display.getTxtMinQuantity().getValue()));
+				this.productElement.setMaxQuantity(Long.parseLong(this.display.getTxtMaxQuantity().getValue()));
+			}
+		}
+
+
 		rpcService.addNewElement(productElement, loginInfo.getScreenName(), display.getSelectedCategories(), new AsyncCallback<Void>() {
 
 			@Override
@@ -152,9 +168,8 @@ public class EditProductPresenter implements Presenter{
 
 			@Override
 			public void onSuccess(Void result) {
-				RootPanel.get("detailDiv").clear();
-				eventBus.fireEvent(new UpdatedProductEvent());
-				eventBus.fireEvent(new ProductDetailEvent(productName));
+				RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
+				eventBus.fireEvent(new ProductEvent());
 			}
 		});
 	}

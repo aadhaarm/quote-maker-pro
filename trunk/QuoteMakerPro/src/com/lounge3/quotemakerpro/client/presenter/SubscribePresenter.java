@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.lounge3.quotemakerpro.client.proxy.FormServiceAsync;
 import com.lounge3.quotemakerpro.client.util.ClientUtils;
+import com.lounge3.quotemakerpro.shared.Constants;
 import com.lounge3.quotemakerpro.shared.LoginInfo;
 
 public class SubscribePresenter implements Presenter {  
@@ -45,7 +46,7 @@ public class SubscribePresenter implements Presenter {
 
 	@Override
 	public void go(HasWidgets container) {
-		RootPanel.get("bodyDiv").clear();
-		RootPanel.get("bodyDiv").add(display.asWidget());
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).add(display.asWidget());
 	}
 }

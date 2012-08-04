@@ -40,8 +40,8 @@ public class FormPresenter implements Presenter {
 	@Override
 	public void go(HasWidgets container) {
 		fetchForms();
-		RootPanel.get("bodyDiv").clear();
-		RootPanel.get("bodyDiv").add(display.asWidget());
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).add(display.asWidget());
 	}
 
 	private void fetchForms() {
