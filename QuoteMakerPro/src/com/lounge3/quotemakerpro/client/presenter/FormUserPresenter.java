@@ -96,7 +96,7 @@ public class FormUserPresenter implements Presenter {
 			
 			@Override
 			public void onSuccess(Boolean result) {
-				RootPanel.get("bodyDiv").clear();
+				RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
 			}
 			
 			@Override
@@ -108,8 +108,8 @@ public class FormUserPresenter implements Presenter {
 
 	@Override
 	public void go(HasWidgets container) {
-		RootPanel.get("bodyDiv").clear();
-		RootPanel.get("bodyDiv").add(display.asWidget());
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).add(display.asWidget());
 	}
 
 	private void getForm() {

@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 import com.lounge3.quotemakerpro.client.event.LoginEvent;
 import com.lounge3.quotemakerpro.client.event.LogoutEvent;
 import com.lounge3.quotemakerpro.client.proxy.FormServiceAsync;
+import com.lounge3.quotemakerpro.shared.Constants;
 import com.lounge3.quotemakerpro.shared.LoginInfo;
 
 public class StatusBarPresenter implements Presenter{  
@@ -63,7 +64,7 @@ public class StatusBarPresenter implements Presenter{
 	}
 
 	public void go(final HasWidgets container) {
-		RootPanel.get("rightHandStatusBarDiv").clear();
-		RootPanel.get("rightHandStatusBarDiv").add(display.asWidget());
+		RootPanel.get(Constants.DIV_RIGHT_STATUS).clear();
+		RootPanel.get(Constants.DIV_RIGHT_STATUS).add(display.asWidget());
 	}
 }

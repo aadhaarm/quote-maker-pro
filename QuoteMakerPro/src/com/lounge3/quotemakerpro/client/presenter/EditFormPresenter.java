@@ -100,8 +100,7 @@ public class EditFormPresenter implements Presenter {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				RootPanel.get("bodyDiv").clear();
-				// eventBus.fireEvent(new ProductEvent());
+				RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
 			}
 		});
 	}
@@ -126,8 +125,8 @@ public class EditFormPresenter implements Presenter {
 		// RootPanel.get().add(img, 40, 30);
 		// dragController.makeDraggable(img);
 
-		RootPanel.get("bodyDiv").clear();
-		RootPanel.get("bodyDiv").add(display.asWidget());
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).clear();
+		RootPanel.get(Constants.DIV_MAIN_CONTENT).add(display.asWidget());
 	}
 
 	private void doSave() {
